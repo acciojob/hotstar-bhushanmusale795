@@ -1,13 +1,11 @@
 package com.driver.model;
 
-package com.driver.model;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "production_house")
+@Table
 public class ProductionHouse {
 
     @Id
@@ -17,26 +15,17 @@ public class ProductionHouse {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "productionHouse", cascade = CascadeType.ALL)
+    private double ratings;
+
+    @OneToMany(mappedBy = "productionHouse",cascade = CascadeType.ALL)
     private List<WebSeries> webSeriesList;
 
-    public double calculateAverageRating() {
-        if (webSeriesList.isEmpty()) {
-            return 0;
-        }
-        double totalRating = 0;
-        for (WebSeries series : webSeriesList) {
-            totalRating += series.getRating();
-        }
-        return totalRating / webSeriesList.size();
-    }
     public ProductionHouse(String name) {
         this.name = name;
         this.webSeriesList = new ArrayList<>();
     }
 
     public ProductionHouse() {
-        this.webSeriesList = new ArrayList<>();
     }
 
     public int getId() {
@@ -63,14 +52,11 @@ public class ProductionHouse {
         this.webSeriesList = webSeriesList;
     }
 
-    public double calculateAverageRating() {
-        if (webSeriesList.isEmpty()) {
-            return 0.0;
-        }
-        double totalRating = 0.0;
-        for (WebSeries series : webSeriesList) {
-            totalRating += series.getRating();
-        }
-        return totalRating / webSeriesList.size();
+    public double getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(double ratings) {
+        this.ratings = ratings;
     }
 }

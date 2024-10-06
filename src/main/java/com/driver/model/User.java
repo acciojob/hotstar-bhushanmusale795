@@ -1,7 +1,5 @@
 package com.driver.model;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +34,7 @@ public class User {
         this.subscription = subscription;
     }
 
-    public boolean canWatch(@NotNull WebSeries series) {
+    public boolean canWatch(WebSeries series) {
         return series.isAccessible(subscription);
     }
 
