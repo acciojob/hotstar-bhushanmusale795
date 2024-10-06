@@ -1,5 +1,7 @@
 package com.driver.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +28,21 @@ public class User {
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private Subscription subscription;
+    private String name;
+    private Subscription subscription;
+
+    public User(String name, Subscription subscription) {
+        this.name = name;
+        this.subscription = subscription;
+    }
+
+    public boolean canWatch(@NotNull WebSeries series) {
+        return series.isAccessible(subscription);
+    }
+
+    public boolean canWatchMatch() {
+        return subscription.getPlan() == Subscription.Plan.ELITE;
+    }
 
     public User(int id, String name, int age, String mobNo) {
         this.id = id;

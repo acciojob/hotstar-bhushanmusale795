@@ -1,6 +1,8 @@
 package com.driver.model;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class WebSeries {
+public class
+WebSeries {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +43,23 @@ public class WebSeries {
 
     public WebSeries() {
 
+    }
+    public WebSeries(String title, Subscription.Plan requiredPlan, double rating) {
+        this.title = title;
+        this.requiredPlan = requiredPlan;
+        this.rating = rating;
+    }
+
+    public boolean isAccessible(@NotNull Subscription subscription) {
+        if (subscription.getPlan() == Subscription.Plan.ELITE) {
+            return true; // ELITE can access everything
+        }
+        return subscription.getPlan() == requiredPlan ||
+                (subscription.getPlan() == Subscription.Plan.PRO && requiredPlan == Subscription.Plan.BASIC);
+    }
+
+    public double getRating() {
+        return rating;
     }
 
     public int getId() {

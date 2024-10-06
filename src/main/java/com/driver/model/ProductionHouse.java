@@ -20,6 +20,16 @@ public class ProductionHouse {
     @OneToMany(mappedBy = "productionHouse", cascade = CascadeType.ALL)
     private List<WebSeries> webSeriesList;
 
+    public double calculateAverageRating() {
+        if (webSeriesList.isEmpty()) {
+            return 0;
+        }
+        double totalRating = 0;
+        for (WebSeries series : webSeriesList) {
+            totalRating += series.getRating();
+        }
+        return totalRating / webSeriesList.size();
+    }
     public ProductionHouse(String name) {
         this.name = name;
         this.webSeriesList = new ArrayList<>();
