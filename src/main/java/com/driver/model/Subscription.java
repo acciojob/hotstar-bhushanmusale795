@@ -40,6 +40,35 @@ public class Subscription {
     public Subscription() {
 
     }
+    public enum Plan {
+        BASIC, PRO, ELITE
+    }
+
+    private Plan plan;
+    private int noOfScreensSubscribed;
+
+    public Subscription(Plan plan, int noOfScreensSubscribed) {
+        this.plan = plan;
+        this.noOfScreensSubscribed = noOfScreensSubscribed;
+    }
+
+    public double calculateCost() {
+        switch (plan) {
+            case BASIC:
+                return 500 + 200 * noOfScreensSubscribed;
+            case PRO:
+                return 800 + 250 * noOfScreensSubscribed;
+            case ELITE:
+                return 1000 + 350 * noOfScreensSubscribed;
+            default:
+                throw new IllegalArgumentException("Unknown subscription plan");
+        }
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+}
 
     public int getId() {
         return id;
